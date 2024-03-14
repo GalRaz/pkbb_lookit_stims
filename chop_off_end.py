@@ -2,7 +2,7 @@ import ffmpeg
 import os
 from pathlib import Path
 
-def trim_video(input_path, output_path, trim_duration=15):
+def trim_video(input_path, output_path, trim_duration=20):
     # Get the duration of the video
     probe = ffmpeg.probe(input_path)
     duration = float(probe['format']['duration'])
@@ -13,7 +13,7 @@ def trim_video(input_path, output_path, trim_duration=15):
     # Execute FFmpeg command to trim the video
     ffmpeg.input(input_path, ss=0, t=new_duration).output(output_path, c='copy').run(overwrite_output=True)
 
-def process_videos(input_folder, output_folder, trim_duration=15):
+def process_videos(input_folder, output_folder, trim_duration=20):
     input_folder_path = Path(input_folder)
     output_folder_path = Path(output_folder)
     
@@ -38,7 +38,7 @@ def process_videos(input_folder, output_folder, trim_duration=15):
                     print(f'Error processing {input_path}: {e}')
 
 if __name__ == '__main__':
-    input_folder = 'lookit_unity_stims'
+    input_folder = 'unity_stims_full'
     output_folder = 'trimmed_stims'
     
     process_videos(input_folder, output_folder)
